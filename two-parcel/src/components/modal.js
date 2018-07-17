@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
@@ -23,19 +23,16 @@ const styles = theme => ({
   },
 });
 
-class SimpleModal extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      open: props.openModal,
-    };
+class SimpleModal extends Component {
+  state = {
+    open: this.props.openModal,
+  };
 
-    this.handleClose = () => {
-      this.setState({ open: false }, () => {
-        this.props.toggleModal(this.state.open)
-      })
-    };
-  }
+  handleClose = () => {
+    this.setState({ open: false }, () => {
+      this.props.toggleModal(this.state.open)
+    })
+  };
 
   render() {
     const { classes } = this.props;
@@ -49,13 +46,13 @@ class SimpleModal extends React.Component {
           onClose={this.handleClose}
         >
           <div style={getModalStyle()} className={classes.paper}>
-            <Button onClick={this.handleClose}>Close Modal</Button>
             <Typography variant="title" id="modal-title">
               Text in a modal
             </Typography>
             <Typography variant="subheading" id="simple-modal-description">
               Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
             </Typography>
+            <Button onClick={this.handleClose}>Close Modal</Button>
           </div>
         </Modal>
       </div>
